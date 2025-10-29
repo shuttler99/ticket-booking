@@ -72,4 +72,10 @@ public class Ticket {
     public void setTrain(Train train) {
         this.train = train;
     }
+
+    public String getTicketInfo() {
+        return String.format("Ticket ID: %s belongs to User %s from %s to %s on %s", ticketId, userId, source,
+                destination, date);
+    }
+
 }
