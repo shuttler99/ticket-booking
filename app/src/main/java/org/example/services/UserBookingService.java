@@ -7,34 +7,23 @@ import org.example.util.UserServiceUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
 public class UserBookingService {
-
+    private ObjectMapper objectMapper = new ObjectMapper();
     private User user;
     private List<User> userList;
-    private static final String USERS_RESOURCE_PATH = "users.json";
+    private static final String USERS_RESOURCE_PATH = "src/main/resources/users.json";
 
-    public UserBookingService(User user1) {
+    public UserBookingService(User user1) throws IOException {
         this.user = user1;
+        loadUserListFromFile();
+    }
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(USERS_RESOURCE_PATH)) {
-            if (inputStream == null) {
-                throw new IOException(
-                        "Resource not found: " + USERS_RESOURCE_PATH + ". Ensure it's in src/main/resources/");
-            }
-            File usersFile = new File("app/src/main/resources/users.json");
-            System.out.println(usersFile);
-
-            // Deserialize JSON into List<User>
-            userList = objectMapper.readValue(usersFile, new TypeReference<List<User>>() {
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void loadUserListFromFile() throws IOException {
+        userList = objectMapper.readValue(new File(USERS_RESOURCE_PATH), new TypeReference<List<User>>() {
+        });
     }
 
     public List<User> getUserList() {
@@ -54,7 +43,7 @@ public class UserBookingService {
 
     private void saveUserListToFile() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File usersFile = new File("app/src/main/resources/users.json");
+        File usersFile = new File(USERS_RESOURCE_PATH);
         objectMapper.writeValue(usersFile, userList);
     }
 
