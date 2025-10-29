@@ -26,6 +26,12 @@ public class User {
         this.ticketBooked = new ArrayList<>();
     }
 
+    public void printTickets() {
+        for (int i = 0; i < ticketBooked.size(); i++) {
+            System.out.println(ticketBooked.get(i).getTicketInfo());
+        }
+    }
+
     // Getters and Setters
     public String getName() {
         return name;

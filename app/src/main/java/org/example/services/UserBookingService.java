@@ -72,14 +72,11 @@ public class UserBookingService {
         return false;
     }
 
-    public void fetchBookings() {
-        Optional<User> foundUser = userList.stream().filter(user1 -> {
-            return user1.getName().equalsIgnoreCase(user.getName())
-                    && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashPassword());
-        }).findFirst();
-
-        if (foundUser.isPresent()) {
-              foundUser.get().
+    public void fetchTickets() {
+        if (this.user.getTicketBooked().size() > 0) {
+            this.user.printTickets();
+        } else {
+            System.out.println("The user has not booked any ticket");
         }
 
     }

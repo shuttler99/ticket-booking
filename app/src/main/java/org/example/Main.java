@@ -48,25 +48,38 @@ public class Main {
                     userBookingService.signUp(currentUser);
                     break;
                 case 2:
-                    System.out.println("Enter the username ");
-                    String nameToLogin = sc.nextLine();
-                    System.out.println("Enter the password");
-                    String passwordToLogin = sc.nextLine();
+                    int attempts = 0;
+                    int maxRetry = 3;
+                    boolean isLoggedIn = false;
 
-                    User loginUser = new User(UUID.randomUUID().toString(), nameToLogin, passwordToLogin,
-                            UserServiceUtil.hashPassword(passwordToLogin));
+                    while (!isLoggedIn && attempts < maxRetry) {
+                        System.out.println("Enter the username: ");
+                        String nameToLogin = sc.nextLine();
+                        System.out.println("Enter the password: ");
+                        String passwordToLogin = sc.nextLine();
 
-                    try {
-                        userBookingService = new UserBookingService(loginUser);
-                    } catch (IOException ex) {
-                        return;
+                        isLoggedIn = userBookingService.loginUser(nameToLogin, passwordToLogin);
+
+                        if (isLoggedIn) {
+                            System.out.println("You have logged in successfully!");
+                        } else {
+                            attempts++;
+                            if (attempts < maxRetry) {
+                                System.out.println("Invalid credentials. " + (maxRetry - attempts) + " attempts left.");
+                                System.out.println("Please try again.");
+                            } else {
+                                System.out.println("Too many failed attempts. Returning to main menu.");
+                            }
+                        }
                     }
-
                     break;
 
                 case 3:
-                    System.out.println("Search Bookings");
-                    // By
+                    System.out.println("Fetch your bookings");
+                    // Now the user is loggedIn in the system
+                    // What fetching the details should do it should give details of the tickets
+                    // The tickets which are associated to him at a moment
+
                 case 4:
                     System.out.println("Enter the station");
 
