@@ -77,7 +77,7 @@ public class UserBookingService {
             return;
         }
         // Check is user is Assigned or not
-        if (this.user.getTicketsBooked()).size() > 0) {
+        if (this.user.getTicketsBooked().size() > 0) {
             this.user.printTickets();
         } else {
             System.out.println("The user has not booked any ticket");
