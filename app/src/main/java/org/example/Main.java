@@ -1,8 +1,11 @@
 package org.example;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
+import org.example.entities.Train;
 import org.example.entities.User;
 import org.example.services.UserBookingService;
 import org.example.util.UserServiceUtil;
@@ -13,8 +16,12 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Running the Train Booking System");
+        String source = "";
+        String destination = "";
         Scanner sc = new Scanner(System.in);
         int option = 0;
+        boolean isLoggedIn = false;
+        Train selectedTrain = new Train();
         UserBookingService userBookingService = null;
         try {
             // here the empty constructor will be initiliazed
@@ -50,7 +57,6 @@ public class Main {
                 case 2:
                     int attempts = 0;
                     int maxRetry = 3;
-                    boolean isLoggedIn = false;
 
                     while (!isLoggedIn && attempts < maxRetry) {
                         System.out.println("Enter the username: ");
@@ -75,21 +81,73 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("Fetch your bookings");
-                    // Now the user is loggedIn in the system
-                    // What fetching the details should do it should give details of the tickets
-                    // The tickets which are associated to him at a moment
+                    if (!isLoggedIn) {
+                        System.out.println("You need to login First");
+                        break;
+                    }
+                    userBookingService.fetchTickets();
+                    break;
 
                 case 4:
-                    System.out.println("Enter the station");
+                    System.out.println("Enter the start city");
+                    source = sc.nextLine();
+                    System.out.println("Enter the destination city");
+                    destination = sc.nextLine();
+
+                    List<Train> trains = userBookingService.findTrains(source, destination);
+                    int index = 1;
+                    for (Train t : trains) {
+                        System.out.println(index + " Train id : " + t.getTrainId());
+                        for (Map.Entry<String, String> entry : t.getDestinationsTime().entrySet()) {
+                            System.out.println("station " + entry.getKey() + " time: " + entry.getValue());
+                        }
+                    }
+
+                    System.out.println("Please select a train by pressing 1 2 3 or ..");
+                    int selectedTrainIndex = sc.nextInt();
+                    // here user will have the selected train
+                    selectedTrain = trains.get(selectedTrainIndex);
+
+                case 5:
+                    // Show the available seats in the train
+                    List<List<Integer>> availableSeats = selectedTrain.getSeats();
+                    // We need to map over the data to show the seats
+
+                    System.out.println("Available Seats (0 = Available, 1 = Occupied):");
+                    System.out.println("Columns: 0  1  2  3");
+                    for (int i = 0; i < availableSeats.size(); i++) {
+                        System.out.print("Row " + i + ":   ");
+                        for (int j = 0; j < availableSeats.get(i).size(); j++) {
+                            System.out.print(availableSeats.get(i).get(j) + "  ");
+                        }
+                        System.out.println();
+                    }
+
+                    System.out.println("Enter the column please..");
+                    int column = sc.nextInt();
+
+                    System.out.println("Enter the row please..");
+                    int row = sc.nextInt();
+
+                    System.out.println("Booking your seat thanks for pateience.....");
+                    boolean isTicketBooked = userBookingService.bookTicket(selectedTrain, source, destination, row,
+                            column);
+
+                    if (isTicketBooked) {
+                        System.out.println("Your tickets have been booked");
+                    } else {
+                        System.out.println("You cannot book this seat");
+                    }
+                    break;
+
+                default:
+                    break;
 
             }
+
+            sc.close();
 
         }
 
     }
 }
-
-// When a user wanted to print tickets which we had
-// We first need to check that if a user exists in the system or not
-//
