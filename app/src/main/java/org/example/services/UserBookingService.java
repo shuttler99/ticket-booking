@@ -77,7 +77,7 @@ public class UserBookingService {
             return;
         }
         // Check is user is Assigned or not
-        if (this.user.getTicketBooked().size() > 0) {
+        if (this.user.getTicketsBooked()).size() > 0) {
             this.user.printTickets();
         } else {
             System.out.println("The user has not booked any ticket");
@@ -99,7 +99,7 @@ public class UserBookingService {
 
     public boolean bookTicket(Train selectedTrain, String source, String destination, int row, int column) {
 
-        if (user.getTicketBooked().size() >= 2) {
+        if (user.getTicketsBooked().size() >= 2) {
             System.out.println("Maximum ticket booking limit reached (2 tickets per user)");
             return false;
         }
@@ -135,7 +135,7 @@ public class UserBookingService {
         } catch (IOException ex) {
 
             seats.get(row).set(column, 0);
-            user.getTicketBooked().remove(ticket);
+            user.getTicketsBooked().remove(ticket);
             System.out.println("Booking failed due to system error. Please try again.");
             ex.printStackTrace();
             return false;

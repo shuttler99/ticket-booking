@@ -1,14 +1,12 @@
 package org.example.entities;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ArrayList;
 
 public class Train {
     private String trainId;
-    private String trainNumber;
+    private String trainNo;
     private List<List<Integer>> seats;
     private HashMap<String, String> destinationsTime;
     private List<String> stations;
@@ -21,9 +19,9 @@ public class Train {
         this.stations = new ArrayList<>();
     }
 
-    public Train(String trainId, String trainNumber) {
+    public Train(String trainId, String trainNo) {
         this.trainId = trainId;
-        this.trainNumber = trainNumber;
+        this.trainNo = trainNo;
         this.seats = new ArrayList<>();
         this.destinationsTime = new HashMap<>();
         this.stations = new ArrayList<>();
@@ -38,12 +36,12 @@ public class Train {
         this.trainId = trainId;
     }
 
-    public String getTrainNumber() {
-        return trainNumber;
+    public String gettrainNo() {
+        return trainNo;
     }
 
-    public void setTrainNumber(String trainNumber) {
-        this.trainNumber = trainNumber;
+    public void settrainNo(String trainNo) {
+        this.trainNo = trainNo;
     }
 
     public List<List<Integer>> getSeats() {

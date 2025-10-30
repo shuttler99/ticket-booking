@@ -7,28 +7,28 @@ public class User {
 
     private String name;
     private String password;
-    private String hashPassword;
+    private String hashedPassword;
     private String userId;
     // When it will be a new user then this will be a non optional field
-    private List<Ticket> ticketBooked;
+    private List<Ticket> ticketsBooked;
 
     // Constructors
     public User() {
-        this.ticketBooked = new ArrayList<>();
+        this.ticketsBooked = new ArrayList<>();
     }
 
     public User(String userId, String name, String password, String hashPassword) {
         this.userId = userId;
         this.name = name;
         this.password = password;
-        this.hashPassword = hashPassword;
+        this.hashedPassword = hashPassword;
         // Here it is Automatically handling this
-        this.ticketBooked = new ArrayList<>();
+        this.ticketsBooked = new ArrayList<>();
     }
 
     public void printTickets() {
-        for (int i = 0; i < ticketBooked.size(); i++) {
-            System.out.println(ticketBooked.get(i).getTicketInfo());
+        for (int i = 0; i < ticketsBooked.size(); i++) {
+            System.out.println(ticketsBooked.get(i).getTicketInfo());
         }
     }
 
@@ -50,11 +50,11 @@ public class User {
     }
 
     public String getHashPassword() {
-        return hashPassword;
+        return hashedPassword;
     }
 
     public void setHashPassword(String hashPassword) {
-        this.hashPassword = hashPassword;
+        this.hashedPassword = hashPassword;
     }
 
     public String getUserId() {
@@ -65,17 +65,17 @@ public class User {
         this.userId = userId;
     }
 
-    public List<Ticket> getTicketBooked() {
-        return ticketBooked;
+    public List<Ticket> getTicketsBooked() {
+        return ticketsBooked;
     }
 
-    public void setTicketBooked(List<Ticket> ticketBooked) {
-        this.ticketBooked = ticketBooked;
+    public void setticketsBooked(List<Ticket> ticketsBooked) {
+        this.ticketsBooked = ticketsBooked;
     }
 
     public void addTicket(Ticket ticket) {
-        if (this.ticketBooked.size() < 2) {
-            this.ticketBooked.add(ticket);
+        if (this.ticketsBooked.size() < 2) {
+            this.ticketsBooked.add(ticket);
         }
     }
 }

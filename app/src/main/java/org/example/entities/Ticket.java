@@ -8,7 +8,7 @@ public class Ticket {
     private String userId;
     private String source;
     private String destination;
-    private Date date;
+    private Date dateOfTravel;
     private Train train;
 
     // Constructors
@@ -20,7 +20,7 @@ public class Ticket {
         this.userId = userId;
         this.source = source;
         this.destination = destination;
-        this.date = date;
+        this.dateOfTravel = date;
         this.train = train;
     }
 
@@ -58,11 +58,11 @@ public class Ticket {
     }
 
     public Date getDate() {
-        return date;
+        return dateOfTravel;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.dateOfTravel = date;
     }
 
     public Train getTrain() {
@@ -75,7 +75,7 @@ public class Ticket {
 
     public String getTicketInfo() {
         return String.format("Ticket ID: %s belongs to User %s from %s to %s on %s", ticketId, userId, source,
-                destination, date);
+                destination, dateOfTravel);
     }
 
 }
