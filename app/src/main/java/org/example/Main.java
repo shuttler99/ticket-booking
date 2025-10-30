@@ -105,8 +105,16 @@ public class Main {
 
                     System.out.println("Please select a train by pressing 1 2 3 or ..");
                     int selectedTrainIndex = sc.nextInt();
-                    // here user will have the selected train
-                    selectedTrain = trains.get(selectedTrainIndex);
+                    sc.nextLine(); // Consume newline
+                    
+                    // Convert user input (1-based) to array index (0-based)
+                    if (selectedTrainIndex < 1 || selectedTrainIndex > trains.size()) {
+                        System.out.println("Invalid train selection. Please try again.");
+                        break;
+                    }
+                    selectedTrain = trains.get(selectedTrainIndex - 1);
+                    System.out.println("Selected train: " + selectedTrain.getTrainId());
+                    break;
 
                 case 5:
                     // Show the available seats in the train
@@ -145,9 +153,9 @@ public class Main {
 
             }
 
-            sc.close();
-
         }
+
+        sc.close();
 
     }
 }
